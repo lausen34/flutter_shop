@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-void main(){
+
+void main() {
   return runApp(myApp());
 }
 
@@ -9,10 +10,20 @@ class myApp extends StatelessWidget {
     return MaterialApp(
       title: "电子商城",
       home: Scaffold(
-        appBar: AppBar(title: Text("电子商城",),),
+        appBar: AppBar(
+          title: Text(
+            "电子商城",
+          ),
+        ),
         body: Container(
           child: Center(
-            child: Text("fuck"),
+            child: Text(
+              "fuck fuck fuck",
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.green,
+              ),
+            ),
           ),
         ),
       ),
