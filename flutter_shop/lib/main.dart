@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/component/big_button.dart';
+import 'package:flutter_shop/component/small_button.dart';
+import 'component/show_message.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 
 void main() {
   return runApp(myApp());
@@ -8,21 +12,26 @@ void main() {
 class myApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "电子商城",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "电子商城",
+
+    return ScreenUtilInit(
+      designSize: Size(750,1334),
+      child: MaterialApp(
+        title: "电子商城",
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "电子商城",
+            ),
           ),
-        ),
-        body: Container(
-          child: Center(
-            child: KBigButton(
-              text: "登录",
-              onPressed: () {
-                print('fuck');
-              },
+          body: Container(
+            child: Center(
+              child: Column(
+                children: [
+                  KSmallButton(text: "去支付",onPressed: (){
+                    print('去支付');
+                  },)
+                ],
+              )
             ),
           ),
         ),

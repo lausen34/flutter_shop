@@ -21,7 +21,7 @@ class KSmallButton extends StatelessWidget {
           this.onPressed();
         },
         child: Container(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(0),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: KColor.BUY_BUTTON_COLOR,
@@ -31,7 +31,7 @@ class KSmallButton extends StatelessWidget {
             this.text,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 24,
+              fontSize: 20,
             ),
           ),
         ),
