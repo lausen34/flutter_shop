@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/component/big_button.dart';
 
 void main() {
   return runApp(myApp());
@@ -17,10 +18,11 @@ class myApp extends StatelessWidget {
         ),
         body: Container(
           child: Center(
-            child: Image.asset(
-              "assets/images/head.jpeg",
-              width: 100,
-              height: 100,
+            child: KBigButton(
+              text: "登录",
+              onPressed: () {
+                print('fuck');
+              },
             ),
           ),
         ),
