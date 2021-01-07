@@ -17,12 +17,10 @@ class myApp extends StatelessWidget {
         ),
         body: Container(
           child: Center(
-            child: Text(
-              "fuck fuck fuck",
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.green,
-              ),
+            child: Image.asset(
+              "assets/images/head.jpeg",
+              width: 100,
+              height: 100,
             ),
           ),
         ),
