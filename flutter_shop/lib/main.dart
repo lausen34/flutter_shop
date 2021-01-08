@@ -4,6 +4,8 @@ import 'package:flutter_shop/component/circle_check_box.dart';
 import 'package:flutter_shop/component/item_text_field.dart';
 import 'package:flutter_shop/component/logo_container.dart';
 import 'package:flutter_shop/component/small_button.dart';
+import 'package:flutter_shop/utils/random_util.dart';
+import 'package:flutter_shop/utils/token_util.dart';
 
 void main() {
   return runApp(MyApp());
@@ -73,6 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
         ),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          "${RandomUtil.randomNumeric(5)}",
+          style: TextStyle(
+            color: ColorUtil.string2Color("#FF35C8"),
+            fontSize: 24,
+          ),
+        )
       ],
     ));
   }
