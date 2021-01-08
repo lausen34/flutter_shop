@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/component/big_button.dart';
 import 'package:flutter_shop/component/item_text_field.dart';
+import 'package:flutter_shop/component/logo_container.dart';
 import 'package:flutter_shop/component/small_button.dart';
-import 'component/show_message.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 
 void main() {
   return runApp(myApp());
@@ -40,7 +39,11 @@ class myApp extends StatelessWidget {
                   title: "用户名",
                   hintText: '请输入用户名',
                   obscureText: false,
-                )
+                ),
+
+                SizedBox(height: 30,),
+
+                LogoContainer(),
               ],
             )),
           ),
