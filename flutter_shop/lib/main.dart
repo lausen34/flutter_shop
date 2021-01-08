@@ -6,6 +6,7 @@ import 'package:flutter_shop/component/logo_container.dart';
 import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/utils/random_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
+import 'utils/router_util.dart';
 
 void main() {
   return runApp(MyApp());
@@ -44,48 +45,52 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: [
-        KSmallButton(
-          text: "去支付",
-          onPressed: () {
-            print('去支付');
-          },
-        ),
-        ItemTextField(
-          icon: Icon(Icons.blur_circular),
-          controller: TextEditingController(),
-          focusNode: FocusNode(),
-          title: "用户名",
-          hintText: '请输入用户名',
-          obscureText: false,
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        LogoContainer(),
-        SizedBox(
-          height: 50,
-        ),
-        CircleCheckBox(
-          value: onChanged,
-          onChanged: (value) {
-            setState(() {
-              onChanged = value;
-            });
-          },
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Text(
-          "${RandomUtil.randomNumeric(5)}",
-          style: TextStyle(
-            color: ColorUtil.string2Color("#FF35C8"),
-            fontSize: 24,
+      child: Column(
+        children: [
+          KSmallButton(
+            text: "去支付",
+            onPressed: () {
+              print('去支付');
+            },
           ),
-        )
-      ],
-    ));
+          ItemTextField(
+            icon: Icon(Icons.blur_circular),
+            controller: TextEditingController(),
+            focusNode: FocusNode(),
+            title: "用户名",
+            hintText: '请输入用户名',
+            obscureText: false,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          LogoContainer(),
+          SizedBox(
+            height: 50,
+          ),
+          CircleCheckBox(
+            value: onChanged,
+            onChanged: (value) {
+              setState(() {
+                onChanged = value;
+              });
+            },
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            "${RandomUtil.randomNumeric(5)}",
+            style: TextStyle(
+              color: ColorUtil.string2Color("#FF35C8"),
+              fontSize: 24,
+            ),
+          ),
+          FloatingActionButton(onPressed: (){
+            RouterUtil.toLoginPage(context,'Lausen');
+          })
+        ],
+      ),
+    );
   }
 }
