@@ -1,17 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ColorUtil{
-  static Color string2Color(String colorString){
-    int value = 0x00000000;
-    if(colorString[0] == "#"){
-      colorString = colorString.substring(1);
+class TokenUtil {
+  // 判断是否登录
+  static Future<bool> isLogin() async{
+    var token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = await prefs.getString('token');
+    if (token == "" || token == null){
+      return false;
     }
-    value = int.tryParse(colorString,radix: 16);
-    if(value != null){
-      if(value < 0xFF000000){
-        value += 0xFF000000;
-      }
-    }
-    return Color(value);
+    return true;
+  }
+
+  // 获取token
+  static Future<String> getToken() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = await prefs.getString('token');
+    return token;
   }
 }

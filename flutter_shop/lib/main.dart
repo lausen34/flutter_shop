@@ -5,7 +5,7 @@ import 'package:flutter_shop/component/item_text_field.dart';
 import 'package:flutter_shop/component/logo_container.dart';
 import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/utils/random_util.dart';
-import 'package:flutter_shop/utils/token_util.dart';
+import 'package:flutter_shop/utils/color_util.dart';
 import 'utils/router_util.dart';
 
 void main() {
