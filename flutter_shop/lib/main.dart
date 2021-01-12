@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/page/main_page.dart';
 
@@ -9,16 +8,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(750, 1334),
-      child: MaterialApp(
-        title: 'Lausen',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: KColor.PRIMARY_COLOR,
-        ),
-        home: MainPage(),
+    return MaterialApp(
+      title: 'Lausen',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: KColor.PRIMARY_COLOR,
       ),
+      home: MainPage(),
     );
   }
 }
