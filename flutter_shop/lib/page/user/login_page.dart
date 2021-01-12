@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/call/call.dart';
 
 class LoginPage extends StatelessWidget {
   String username;
@@ -15,8 +16,12 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: Text(
-            username,
+          child: RaisedButton(
+            onPressed: () {
+              Call.dispatch("lausen",
+                  data: {'name': '登录界面发送消息', 'isLogin': true});
+            },
+            child: Text("登录界面按钮"),
           ),
         ),
       ),

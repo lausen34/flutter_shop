@@ -7,6 +7,8 @@ import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/utils/random_util.dart';
 import 'package:flutter_shop/utils/color_util.dart';
 import 'utils/router_util.dart';
+import 'package:flutter_shop/call/call.dart';
+import 'package:flutter_shop/call/notifiy.dart';
 
 void main() {
   return runApp(MyApp());
@@ -42,6 +44,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var onChanged = false;
 
+  @override
+  void initState() {
+    super.initState();
+    
+    Call.addCallBack('lausen', callback);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,5 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  callback(data){
+    print(data['name']);
   }
 }
