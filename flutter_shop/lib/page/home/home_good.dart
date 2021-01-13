@@ -44,6 +44,7 @@ class _HomeGoodState extends State<HomeGood> {
           color: bgColor,
           width: width,
           margin: EdgeInsets.only(
+            top: 5.0,
             bottom: 5,
             left: 2,
           ),
