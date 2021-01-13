@@ -62,10 +62,10 @@ class _CategoryFirstState extends State<CategoryFirst> {
         });
 
         //TODO 刷新二级分类
-        // Call.dispatch(
-        //   Notify.REFRESH_SECOND_CATEGORY,
-        //   data: {'firstCategoryId': id},
-        // );
+        Call.dispatch(
+          Notify.REFRESH_SECOND_CATEGORY,
+          data: {'firstCategoryId': id},
+        );
       },
       child: Container(
         height: ScreenUtil().setHeight(80.0),
