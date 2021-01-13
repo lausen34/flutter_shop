@@ -121,14 +121,14 @@ class HomeCategoryModel {
   String name;
   int pid;
   String level;
-  String images;
+  String image;
 
   HomeCategoryModel({
     this.id,
     this.name,
     this.pid,
     this.level,
-    this.images,
+    this.image,
   });
 
   HomeCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -136,7 +136,7 @@ class HomeCategoryModel {
     name = json['name'];
     pid = json['pid'];
     level = json['level'];
-    images = json['images'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -145,6 +145,6 @@ class HomeCategoryModel {
     data['name'] = this.name;
     data['pid'] = this.pid;
     data['level'] = this.level;
-    data['images'] = this.images;
+    data['image'] = this.image;
   }
 }

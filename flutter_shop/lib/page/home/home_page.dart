@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     var response = await HttpService.get(ApiUrl.HOME_CONTENT);
     this.setState(() {
       _homeModel = HomeContentModel.fromJson(response['data']);
-      _homeModel.goods.forEach((element) {
-        print(element.name);
+      _homeModel.category.forEach((element) {
+        print(element.image);
       });
     });
   }
