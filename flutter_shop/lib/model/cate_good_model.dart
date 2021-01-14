@@ -1,10 +1,8 @@
 //model/category_good_model.dart文件
 //分类商品数据列表模型
 class CategoryGoodListModel{
-
   //商品数据列表
   List<CategoryGoodModel> list = [];
-
   //构造函数
   CategoryGoodListModel({this.list});
 
