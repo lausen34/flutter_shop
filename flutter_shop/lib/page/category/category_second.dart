@@ -5,6 +5,7 @@ import 'package:flutter_shop/model/category_model.dart';
 import 'package:flutter_shop/call/notifiy.dart';
 import 'package:flutter_shop/service/http_service.dart';
 import 'package:flutter_shop/config/index.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 
 class CategorySecond extends StatefulWidget {
   @override
@@ -87,7 +88,7 @@ class _CategorySecondState extends State<CategorySecond> {
         setState(() {
           _secondCategoryId = categoryModel.id;
         });
-        //TODO 二级分类的点击事件
+        this._goCategoryPage(context, _firstCategoryId, _secondCategoryId);
       },
       child: Container(
         alignment: Alignment.center,
@@ -109,5 +110,9 @@ class _CategorySecondState extends State<CategorySecond> {
         ),
       ),
     );
+  }
+
+  void _goCategoryPage(BuildContext context,int firstCategoryId,int secondCategoryId){
+    RouterUtil.toCategoryGoodListPage(context, firstCategoryId, secondCategoryId);
   }
 }

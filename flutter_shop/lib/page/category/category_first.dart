@@ -29,12 +29,10 @@ class _CategoryFirstState extends State<CategoryFirst> {
       _firstList = model.list;
       _firstCategoryId = id;
     });
-
-    //TODO 刷新二级分类
-    // Call.dispatch(
-    //   Notify.REFRESH_SECOND_CATEGORY,
-    //   data: {'firstCategoryId': id},
-    // );
+    Call.dispatch(
+      Notify.REFRESH_SECOND_CATEGORY,
+      data: {'firstCategoryId': id},
+    );
   }
 
   @override
@@ -55,13 +53,10 @@ class _CategoryFirstState extends State<CategoryFirst> {
     bool _isSelected = (list[index].id == _firstCategoryId);
     return InkWell(
       onTap: () async {
-        //TODO 刷新二级分类
         int id = list[index].id;
         setState(() {
           _firstCategoryId = id;
         });
-
-        //TODO 刷新二级分类
         Call.dispatch(
           Notify.REFRESH_SECOND_CATEGORY,
           data: {'firstCategoryId': id},

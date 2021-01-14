@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/home_content_model.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 
 class HomeCategory extends StatelessWidget {
 
@@ -10,7 +11,7 @@ class HomeCategory extends StatelessWidget {
   Widget _categoryItem(BuildContext context,HomeCategoryModel item){
     return InkWell(
       onTap: (){
-        print(item.name);
+        _goCategory(context, item.id);
       },
       child: Column(
         children: [
@@ -45,5 +46,9 @@ class HomeCategory extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _goCategory(BuildContext context,int categoryId) async {
+    RouterUtil.toCategoryGoodListPage(context, categoryId, 0);
   }
 }
