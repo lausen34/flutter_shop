@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/component/logo_container.dart';
 import 'package:flutter_shop/config/index.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,15 +22,17 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text(
-            KString.LOGOUT_TITLE,
+            KString.LOGIN_TITLE,
           ),
         ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
+              LogoContainer(),
+              SizedBox(height: 80,),
             ],
           ),
         ),

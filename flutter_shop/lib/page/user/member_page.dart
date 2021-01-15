@@ -14,7 +14,7 @@ class MemberPage extends StatefulWidget {
 }
 
 class _MemberPageState extends State<MemberPage> {
-  bool _isLogin = true;
+  bool _isLogin = false;
   String _username = '';
 
   @override
