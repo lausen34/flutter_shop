@@ -4,14 +4,11 @@ import '../page/user/login_page.dart';
 import '../page/category/category_good_list_page.dart';
 
 class RouterUtil {
-  static toLoginPage(BuildContext context, String username) {
+  static toLoginPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            LoginPage(
-              username: username,
-            ),
+        builder: (context) => LoginPage(),
       ),
     );
   }

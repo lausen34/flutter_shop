@@ -5,6 +5,7 @@ import 'package:flutter_shop/call/notifiy.dart';
 import 'package:flutter_shop/component/big_button.dart';
 import 'package:flutter_shop/component/show_message.dart';
 import 'package:flutter_shop/config/index.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
 
 class MemberPage extends StatefulWidget {
@@ -88,7 +89,7 @@ class _MemberPageState extends State<MemberPage> {
                     : Expanded(
                         child: InkWell(
                           onTap: () {
-                            //TODO 跳转至登录界面
+                            RouterUtil.toLoginPage(context);
                           },
                           child: Text(
                             KString.LOGIN_OR_REGISTER,

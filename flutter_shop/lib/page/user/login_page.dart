@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/call/call.dart';
+import 'package:flutter_shop/config/index.dart';
 
-class LoginPage extends StatelessWidget {
-  String username;
-  LoginPage({String username}){
-   this.username = username;
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _userNameController;
+  TextEditingController _pwdController;
+  FocusNode _userNameNode = FocusNode();
+  FocusNode _pwdNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    _userNameController = TextEditingController();
+    _pwdController = TextEditingController();
   }
   @override
   Widget build(BuildContext context) {
@@ -12,16 +22,15 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            '登录',
+            KString.LOGOUT_TITLE,
           ),
         ),
-        body: Center(
-          child: RaisedButton(
-            onPressed: () {
-              Call.dispatch("lausen",
-                  data: {'name': '登录界面发送消息', 'isLogin': true});
-            },
-            child: Text("登录界面按钮"),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              
+            ],
           ),
         ),
       ),
