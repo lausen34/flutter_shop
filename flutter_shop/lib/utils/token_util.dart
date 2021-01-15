@@ -18,4 +18,9 @@ class TokenUtil {
     String token = await prefs.getString('token');
     return token;
   }
+
+  static Future<Map<String,dynamic>> getUserInfo() async{
+    return {'username':'test','isLogin':true};
+  }
+
 }
