@@ -10,6 +10,7 @@ import 'package:flutter_shop/model/user_model.dart';
 import 'package:flutter_shop/service/http_service.dart';
 import 'package:flutter_shop/call/notifiy.dart';
 import 'package:flutter_shop/utils/router_util.dart';
+import 'package:flutter_shop/utils/token_util.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -79,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
             focusNode: _pwdNode,
             title: KString.PASSWORD,
             hintText: KString.PLEASE_INPUT_PWD,
+            obscureText: true,
           ),
           SizedBox(
             height: 20,
@@ -157,12 +159,11 @@ class _LoginPageState extends State<LoginPage> {
     var response = await HttpService.post(ApiUrl.USER_LOGIN, params: formData);
     print(response);
     if (response['code'] == 0) {
-      UserModel model = UserModel.fromJson(response['json']);
+      UserModel model = UserModel.fromJson(response['data']);
       MessageWiddget.show(
         KString.LOGIN_SUCCESS,
       );
-      //保存用户信息
-
+      await TokenUtil.saveLoginInfo(model);
       var data = {
         'username': model.username,
         'isLogin': true,
@@ -174,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
         KString.LOGIN_FAILED,
       );
       var data = {
-        'username':'',
+        'username': '',
         'isLogin': false,
       };
     }

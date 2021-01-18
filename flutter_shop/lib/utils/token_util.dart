@@ -1,3 +1,4 @@
+import 'package:flutter_shop/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenUtil {
@@ -19,8 +20,32 @@ class TokenUtil {
     return token;
   }
 
-  static Future<Map<String,dynamic>> getUserInfo() async{
-    return {'username':'test','isLogin':true};
+  static Future<UserModel> getUserInfo() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = await prefs.getInt('id');
+    var token = await prefs.getString('token');
+    var username = await prefs.getString('username');
+    var mobile = await prefs.getString('mobile');
+    var head_image = await prefs.getString('head_image');
+    var address = await prefs.getString('address');
+    var json = {
+      'id': id,
+      'token': token,
+      'username': username,
+      'mobile': mobile,
+      'head_image': head_image,
+      'address': address,
+    };
+    return UserModel.fromJson(json);
   }
 
+  static saveLoginInfo(UserModel userModel) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('id', userModel.id);
+    await prefs.setString('token', userModel.token);
+    await prefs.setString('username', userModel.username);
+    await prefs.setString('mobile', userModel.mobile);
+    await prefs.setString('head_image', userModel.head_image);
+    await prefs.setString('address', userModel.address);
+  }
 }

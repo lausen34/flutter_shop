@@ -27,13 +27,11 @@ class _MemberPageState extends State<MemberPage> {
   void _checkLogin() async {
     bool login = await TokenUtil.isLogin();
     var user = await TokenUtil.getUserInfo();
-
     this.setState(() {
       _isLogin = login;
-      _username = user['username'];
+      _username = user.username;
     });
   }
-
   void _loginCallBack(data) {
     if (data['isLogin']) {
       _username = data['username'];
@@ -167,7 +165,6 @@ class _MemberPageState extends State<MemberPage> {
                       _isLogin = false;
                       _username = '';
                     });
-
                     var data = {
                       'username':'',
                       'isLogin' : false
