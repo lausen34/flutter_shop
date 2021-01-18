@@ -161,6 +161,9 @@ class _MemberPageState extends State<MemberPage> {
               ? KBigButton(
                   text: KString.LOGOUT_TITLE,
                   onPressed: () {
+                    //清理本地用户信息
+                    TokenUtil.clearUserInfo();
+
                     this.setState(() {
                       _isLogin = false;
                       _username = '';

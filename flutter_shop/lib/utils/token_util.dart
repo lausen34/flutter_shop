@@ -20,6 +20,16 @@ class TokenUtil {
     return token;
   }
 
+  static clearUserInfo() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('id');
+    await prefs.remove('token');
+    await prefs.remove('username');
+    await prefs.remove('mobile');
+    await prefs.remove('head_image');
+    await prefs.remove('address');
+  }
+
   static Future<UserModel> getUserInfo() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id = await prefs.getInt('id');
