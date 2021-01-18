@@ -15,7 +15,7 @@ class ItemTextField extends StatelessWidget {
     this.focusNode,
     this.title,
     this.hintText,
-    this.obscureText,
+    this.obscureText = false,
     this.keyboardType,
   });
 
