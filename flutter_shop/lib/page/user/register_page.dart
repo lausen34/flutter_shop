@@ -12,22 +12,29 @@ import 'package:flutter_shop/call/notifiy.dart';
 import 'package:flutter_shop/utils/router_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _userNameController;
   TextEditingController _pwdController;
+  TextEditingController _mobileController;
+  TextEditingController _addressController;
+
   FocusNode _userNameNode = FocusNode();
   FocusNode _pwdNode = FocusNode();
+  FocusNode _mobileNode = FocusNode();
+  FocusNode _addressNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _userNameController = TextEditingController();
     _pwdController = TextEditingController();
+    _mobileController = TextEditingController();
+    _addressController = TextEditingController();
   }
 
   @override
@@ -37,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           elevation: 0,
           title: Text(
-            KString.LOGIN_TITLE,
+            KString.REGISTER_TITLE,
           ),
         ),
         body: SingleChildScrollView(
@@ -48,7 +55,15 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 80,
               ),
-              _loginContent(context),
+              _registerContent(context),
+              KBigButton(
+                text: KString.REGISTER_TITLE,
+                onPressed: () {
+                  if (this._checkInput()) {
+                    this._register();
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -56,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginContent(BuildContext context) {
+  Widget _registerContent(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
         left: 15,
@@ -64,8 +79,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: Column(
         children: [
+          _itemTitle(
+            KString.USERNAME,
+          ),
           ItemTextField(
-            icon: Icon(Icons.person),
+            icon: Icon(
+              Icons.person,
+            ),
             controller: _userNameController,
             focusNode: _userNameNode,
             title: KString.USER_NAME,
@@ -74,8 +94,28 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 20,
           ),
+          _itemTitle(
+            KString.MOBILE,
+          ),
           ItemTextField(
-            icon: Icon(Icons.lock),
+            icon: Icon(
+              Icons.phone_android,
+            ),
+            controller: _mobileController,
+            focusNode: _mobileNode,
+            title: KString.MOBILE,
+            hintText: KString.PLEASE_INPUT_MOBILE,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          _itemTitle(
+            KString.PASSWORD,
+          ),
+          ItemTextField(
+            icon: Icon(
+              Icons.lock,
+            ),
             controller: _pwdController,
             focusNode: _pwdNode,
             title: KString.PASSWORD,
@@ -85,57 +125,37 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 20,
           ),
-          KBigButton(
-            text: KString.LOGIN_TITLE,
-            onPressed: () {
-              if (this._checkInput()) {
-                this._login();
-              }
-            },
+          _itemTitle(
+            KString.ADDRESS,
+          ),
+          ItemTextField(
+            icon: Icon(
+              Icons.home,
+            ),
+            controller: _addressController,
+            focusNode: _addressNode,
+            title: KString.ADDRESS,
+            hintText: KString.PLEASE_INPUT_ADDRESS,
           ),
           SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _forgetPasswordButton(),
-              _rigisterButton(),
-            ],
-          )
         ],
       ),
     );
   }
 
-  Widget _forgetPasswordButton() {
+  Widget _itemTitle(String title) {
     return Container(
-      padding: EdgeInsets.only(left: 15, right: 15),
-      child: InkWell(
-        child: Text(
-          KString.FORGET_PASSWORD,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: ScreenUtil().setSp(28),
-          ),
-        ),
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(
+        bottom: 10,
       ),
-    );
-  }
-
-  Widget _rigisterButton() {
-    return Container(
-      padding: EdgeInsets.only(left: 15, right: 15),
-      child: InkWell(
-        onTap: () {
-          RouterUtil.toRegisterPage(context);
-        },
-        child: Text(
-          KString.FAST_REGISTER,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: ScreenUtil().setSp(28),
-          ),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 14.0,
         ),
       ),
     );
@@ -146,25 +166,34 @@ class _LoginPageState extends State<LoginPage> {
       MessageWiddget.show(
         KString.PLEASE_INPUT_NAME,
       );
+    } else if (_mobileController.text.length == 0) {
+      MessageWiddget.show(
+        KString.PLEASE_INPUT_PWD,
+      );
     } else if (_pwdController.text.length == 0) {
       MessageWiddget.show(
         KString.PLEASE_INPUT_PWD,
+      );
+    } else if (_addressController.text.length == 0) {
+      MessageWiddget.show(
+        KString.PLEASE_INPUT_ADDRESS,
       );
     }
     return true;
   }
 
-  void _login() async {
+  void _register() async {
     var formData = {
       'username': _userNameController.text.toString(),
+      'mobile': _mobileController.text.toString(),
       'password': _pwdController.text.toString(),
+      'address': _addressController.text.toString(),
     };
-    var response = await HttpService.post(ApiUrl.USER_LOGIN, params: formData);
-    print(response);
+    var response = await HttpService.post(ApiUrl.USER_REGISTER, params: formData);
     if (response['code'] == 0) {
       UserModel model = UserModel.fromJson(response['data']);
       MessageWiddget.show(
-        KString.LOGIN_SUCCESS,
+        KString.REGISTER_SUCCESS,
       );
       await TokenUtil.saveLoginInfo(model);
       var data = {
@@ -172,15 +201,12 @@ class _LoginPageState extends State<LoginPage> {
         'isLogin': true,
       };
       Call.dispatch(Notify.LOGIN_STATUS, data: data);
-      RouterUtil.pop(context);
+      RouterUtil.toMemberPage(context);
     } else {
       MessageWiddget.show(
-        KString.LOGIN_FAILED,
+        KString.REGISTER_FAILED,
       );
-      var data = {
-        'username': '',
-        'isLogin': false,
-      };
+
     }
   }
 }
