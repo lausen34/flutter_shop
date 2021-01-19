@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/good_detail_model.dart';
 import 'package:flutter_shop/page/detail/detail_info.dart';
@@ -15,7 +16,7 @@ class GoodDetailPage extends StatefulWidget {
 }
 
 class _GoodDetailPageState extends State<GoodDetailPage> {
-  GoodDetailModel goodDetailModel = null;
+  GoodDetailModel _goodDetailModel = null;
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _GoodDetailPageState extends State<GoodDetailPage> {
       params: params,
     );
     this.setState(() {
-      goodDetailModel = GoodDetailModel.fromJson(
+      _goodDetailModel = GoodDetailModel.fromJson(
         response['data'],
       );
     });
@@ -53,12 +54,17 @@ class _GoodDetailPageState extends State<GoodDetailPage> {
             KString.GOOD_DETAIL_TITLE,
           ),
         ),
-        body: (goodDetailModel != null)
+        body: (_goodDetailModel != null)
             ? Stack(
                 children: [
                   ListView(
                     children: [
-                      DetailInfo(goodDetailModel),
+                      DetailInfo(
+                        _goodDetailModel,
+                      ),
+                      Html(
+                        data: _goodDetailModel.detail.toString(),
+                      ),
                     ],
                   ),
                   Positioned(
