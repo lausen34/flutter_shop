@@ -15,10 +15,6 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   List<BottomNavigationBarItem> _tabs = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: KString.MENMBER_TITLE,
-    ),
-    BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: KString.HOME_TITLE,
     ),
@@ -30,13 +26,17 @@ class _MainPageState extends State<MainPage> {
       icon: Icon(Icons.shopping_cart),
       label: KString.CART_TITLE,
     ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person),
+      label: KString.MENMBER_TITLE,
+    ),
   ];
 
   List<StatefulWidget> _pages = [
-    MemberPage(),
     HomePage(),
     CategoryPage(),
     CartPage(),
+    MemberPage(),
   ];
 
   @override

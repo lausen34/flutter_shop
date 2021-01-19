@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/page/detail/good_detail_page.dart';
 import 'package:flutter_shop/page/user/member_page.dart';
 import '../page/user/login_page.dart';
 import '../page/category/category_good_list_page.dart';
 import '../page/user/register_page.dart';
 
 class RouterUtil {
-
   static var routerNames = {
-    'memberPage':MemberPage,
+    'memberPage': MemberPage,
   };
 
   static toLoginPage(BuildContext context) {
@@ -44,6 +44,15 @@ class RouterUtil {
 
   static toMemberPage(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  static toGoodDetailPage(BuildContext context, String goodId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GoodDetailPage(goodId),
+      ),
+    );
   }
 
   static pop(BuildContext context) {

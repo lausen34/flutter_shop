@@ -6,6 +6,7 @@ import 'package:flutter_shop/component/show_message.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/cate_good_model.dart';
 import 'package:flutter_shop/service/http_service.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 
 class CategoryGoodListPage extends StatefulWidget {
   int _firstCategoryId = 0;
@@ -127,7 +128,7 @@ class _CategoryGoodListPageState extends State<CategoryGoodListPage> {
   Widget _goodListItem(List<CategoryGoodModel> goodList, int index) {
     return InkWell(
       onTap: () {
-        //TODO 跳转至商品详情
+        RouterUtil.toGoodDetailPage(context, "${goodList[index].id}");
       },
       child: Container(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),

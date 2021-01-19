@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/home_content_model.dart';
 import 'package:flutter_shop/utils/color_util.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 
 class HomeGood extends StatefulWidget {
   List<HomeGoodModel> _goodsList;
@@ -38,7 +39,7 @@ class _HomeGoodState extends State<HomeGood> {
       var bgColor = ColorUtil.string2Color('#f8f8f8');
       return InkWell(
         onTap: () {
-          //TODO 首页商品,跳转至商品详情
+          RouterUtil.toGoodDetailPage(context, "${item.id}");
         },
         child: Container(
           color: bgColor,
