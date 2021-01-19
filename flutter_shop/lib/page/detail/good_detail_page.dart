@@ -5,6 +5,7 @@ import 'package:flutter_shop/model/good_detail_model.dart';
 import 'package:flutter_shop/page/detail/detail_info.dart';
 import 'package:flutter_shop/service/http_service.dart';
 import 'package:flutter_shop/utils/router_util.dart';
+import 'detail_button.dart';
 
 class GoodDetailPage extends StatefulWidget {
   String _goodId;
@@ -70,7 +71,7 @@ class _GoodDetailPageState extends State<GoodDetailPage> {
                   Positioned(
                     bottom: 0,
                     left: 0,
-                    child: Text(''),
+                    child: DetailButton(_goodDetailModel),
                   ),
                 ],
               )
