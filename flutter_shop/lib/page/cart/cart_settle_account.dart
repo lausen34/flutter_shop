@@ -18,8 +18,10 @@ class _CartSettleAccountState extends State<CartSettleAccount> {
       width: ScreenUtil().setWidth(750),
       color: Colors.white,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _allCheckBox(context),
+          _allPriceContainer(context),
           _settleButton(context),
         ],
       ),
@@ -53,6 +55,44 @@ class _CartSettleAccountState extends State<CartSettleAccount> {
     return KSmallButton(
       text: KString.SETTLE_ACCOUNT + '(${_goodCount})',
       onPressed: () {},
+    );
+  }
+
+  Widget _allPriceContainer(BuildContext context) {
+    int _allPrice = 0;
+    DataCenter.getInstance().cartList.forEach((cartModel) {
+      if (cartModel.is_checked == 1) {
+        _allPrice += (cartModel.good_price * cartModel.good_count);
+      }
+    });
+    return Container(
+      width: ScreenUtil().setWidth(430),
+      alignment: Alignment.centerRight,
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.centerRight,
+            width: ScreenUtil().setWidth(200.0),
+            child: Text(
+              KString.ALL_PRICE,
+              style: TextStyle(
+                fontSize: ScreenUtil().setSp(36),
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            width: ScreenUtil().setWidth(230),
+            child: Text(
+              '(¥$_allPrice)',
+              style: TextStyle(
+                fontSize: ScreenUtil().setSp(36),
+                color: KColor.PRICE_TEXT_COLOR,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
