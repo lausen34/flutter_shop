@@ -86,10 +86,10 @@ class DetailButton extends StatelessWidget {
       MessageWiddget.show(
         KString.ADD_SUCCESS,
       );
-      // Call.dispatch(
-      //   Notify.RELOAD_CART_LIST,
-      //   data: _goodDetailModel,
-      // );
+      Call.dispatch(
+        Notify.RELOAD_CART_LIST,
+        data: _goodDetailModel,
+      );
     } else {}
   }
 }

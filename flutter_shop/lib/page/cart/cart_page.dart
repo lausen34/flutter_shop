@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/call/call.dart';
+import 'package:flutter_shop/call/notifiy.dart';
 import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/cart_model.dart';
@@ -14,14 +16,39 @@ class CartPage extends StatefulWidget {
 }
 class _CartPageState extends State<CartPage> {
   bool _refresh = false;
-  bool _isLogin = true;
+  bool _isLogin = false;
   int _userId = 1;
 
   @override
   void initState() {
     super.initState();
+    Call.addCallBack(Notify.RELOAD_CART_LIST, this._reloadCartList);
+    Call.addCallBack(Notify.LOGIN_STATUS, this._loginCallBack);
+    this._checkLogin();
+  }
+
+  void _reloadCartList(){
     this._initData();
   }
+
+  void _loginCallBack(Map<String,dynamic> data){
+    if(data['isLogin']){
+      this.setState(() {
+        _isLogin = true;
+        this._initData();
+      });
+    }else{
+      _isLogin = false;
+    }
+  }
+
+  void _checkLogin() async {
+    _isLogin = await TokenUtil.isLogin();
+    if(_isLogin){
+      this._initData();
+    }
+  }
+
   void _initData() async{
     var user = await TokenUtil.getUserInfo();
     this.setState(() {
