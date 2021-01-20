@@ -31,6 +31,7 @@ class CartGoodItem extends StatelessWidget {
         children: [
           _cartCheckBox(context, this.item),
           _cartGoodImage(this.item),
+          _cartGoodPrice(context, this.item),
         ],
       ),
     );
@@ -68,13 +69,54 @@ class CartGoodItem extends StatelessWidget {
     );
   }
 
-  void _goodCheckedUpdate(BuildContext context, int is_checked) async{
+  
+
+  Widget _cartGoodPrice(BuildContext context, CartModel item) {
+    return Container(
+      width: ScreenUtil().setWidth(150),
+      alignment: Alignment.centerRight,
+      child: Column(
+        children: [
+          Text(
+            '¥${item.good_price}',
+            style: TextStyle(
+              color: KColor.PRICE_TEXT_COLOR,
+            ),
+          ),
+          SizedBox(height: 10,),
+          Container(
+            child: InkWell(
+              onTap: () {
+                this._goodDeleteUpdata(context, item.id);
+              },
+              child: Icon(
+                Icons.delete,
+                color: KColor.CART_DELETE_ICON_COLOR,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _goodCheckedUpdate(BuildContext context, int is_checked) async {
     var params = {
       'id': this.item.id,
       'good_count': this.item.good_count,
       'is_checked': is_checked
     };
-    var response = await HttpService.post(ApiUrl.CART_UPDATE,params: params);
+    var response = await HttpService.post(ApiUrl.CART_UPDATE, params: params);
+    if (response != null && response['code'] == 0) {
+      Call.dispatch(Notify.RELOAD_CART_LIST);
+    }
+  }
+
+  void _goodDeleteUpdata(BuildContext context,int id) async{
+    var params = {
+      'id': id,
+    };
+    var response = await HttpService.post(ApiUrl.CART_DELETE,params: params);
     if(response != null && response['code'] == 0){
       Call.dispatch(Notify.RELOAD_CART_LIST);
     }
