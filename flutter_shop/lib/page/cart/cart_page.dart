@@ -5,6 +5,7 @@ import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/cart_model.dart';
 import 'package:flutter_shop/page/cart/cart_good_item.dart';
+import 'package:flutter_shop/page/cart/cart_settle_account.dart';
 import 'package:flutter_shop/service/http_service.dart';
 import 'package:flutter_shop/utils/router_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
@@ -88,7 +89,7 @@ class _CartPageState extends State<CartPage> {
                 Positioned(
                   left: 0,
                   bottom: 0,
-                  child: Text('fuck'),
+                  child: CartSettleAccount(),
                 ),
               ],
             )
