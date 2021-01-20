@@ -6,6 +6,7 @@ import 'package:flutter_shop/config/api_url.dart';
 import 'package:flutter_shop/config/color.dart';
 import 'package:flutter_shop/model/cart_model.dart';
 import 'package:flutter_shop/component/circle_check_box.dart';
+import 'package:flutter_shop/page/cart/cart_counter.dart';
 import 'package:flutter_shop/service/http_service.dart';
 
 class CartGoodItem extends StatelessWidget {
@@ -31,6 +32,7 @@ class CartGoodItem extends StatelessWidget {
         children: [
           _cartCheckBox(context, this.item),
           _cartGoodImage(this.item),
+          _cartGoodName(context, this.item),
           _cartGoodPrice(context, this.item),
         ],
       ),
@@ -69,7 +71,23 @@ class CartGoodItem extends StatelessWidget {
     );
   }
 
-  
+  Widget _cartGoodName(BuildContext context, CartModel item) {
+    return Container(
+      width: ScreenUtil().setWidth(300),
+      padding: EdgeInsets.all(10.0),
+      alignment: Alignment.topLeft,
+      child: Column(
+        children: [
+          Text(
+            '${item.good_name}',
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+          CartCounter(item),
+        ],
+      ),
+    );
+  }
 
   Widget _cartGoodPrice(BuildContext context, CartModel item) {
     return Container(
@@ -83,7 +101,9 @@ class CartGoodItem extends StatelessWidget {
               color: KColor.PRICE_TEXT_COLOR,
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Container(
             child: InkWell(
               onTap: () {
@@ -112,12 +132,12 @@ class CartGoodItem extends StatelessWidget {
     }
   }
 
-  void _goodDeleteUpdata(BuildContext context,int id) async{
+  void _goodDeleteUpdata(BuildContext context, int id) async {
     var params = {
       'id': id,
     };
-    var response = await HttpService.post(ApiUrl.CART_DELETE,params: params);
-    if(response != null && response['code'] == 0){
+    var response = await HttpService.post(ApiUrl.CART_DELETE, params: params);
+    if (response != null && response['code'] == 0) {
       Call.dispatch(Notify.RELOAD_CART_LIST);
     }
   }
