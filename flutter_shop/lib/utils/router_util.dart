@@ -5,6 +5,7 @@ import 'package:flutter_shop/page/user/member_page.dart';
 import '../page/user/login_page.dart';
 import '../page/category/category_good_list_page.dart';
 import '../page/user/register_page.dart';
+import '../page/order/write_order_page.dart';
 
 class RouterUtil {
   static var routerNames = {
@@ -51,6 +52,15 @@ class RouterUtil {
       context,
       MaterialPageRoute(
         builder: (context) => GoodDetailPage(goodId),
+      ),
+    );
+  }
+
+  static toWriteOrderPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WriteOrderPage(),
       ),
     );
   }

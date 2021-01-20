@@ -4,6 +4,7 @@ import 'package:flutter_shop/component/circle_check_box.dart';
 import 'package:flutter_shop/component/small_button.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/data/data_center.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 
 class CartSettleAccount extends StatefulWidget {
   @override
@@ -54,7 +55,9 @@ class _CartSettleAccountState extends State<CartSettleAccount> {
     });
     return KSmallButton(
       text: KString.SETTLE_ACCOUNT + '(${_goodCount})',
-      onPressed: () {},
+      onPressed: () {
+        RouterUtil.toWriteOrderPage(context);
+      },
     );
   }
 
