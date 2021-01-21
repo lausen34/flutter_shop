@@ -37,7 +37,6 @@ class _CartSettleAccountState extends State<CartSettleAccount> {
           CircleCheckBox(
             value: isAllChecked,
             onChanged: (isChecked) {
-              print(isChecked);
             },
           ),
           Text(KString.CHECK_ALL),

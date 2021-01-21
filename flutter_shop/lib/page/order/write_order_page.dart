@@ -27,7 +27,7 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
     List<CartModel> cartList = DataCenter.getInstance().cartList;
     int price = 0;
     cartList.forEach((cartModel) {
-      if(cartModel.is_checked == 1){
+      if (cartModel.is_checked == 1) {
         price += (cartModel.good_price * cartModel.good_count);
       }
     });
@@ -91,8 +91,85 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
               height: ScreenUtil().setHeight(1.0),
               color: Colors.grey[350],
             ),
+            Column(
+              children: this._goodItems(),
+            )
           ],
         ),
+      ),
+    );
+  }
+
+  List<Widget> _goodItems() {
+    List<CartModel> cartList = DataCenter.getInstance().cartList;
+    List<Widget> list = List<Widget>();
+    cartList.forEach((model) {
+      list.add(this._goodItem(model));
+      list.add(Divider(
+        color: Colors.grey[350],
+        height: ScreenUtil().setHeight(1.0),
+      ));
+    });
+    return list;
+  }
+
+  Widget _goodItem(CartModel model) {
+    return Container(
+      padding: EdgeInsets.only(
+        left: 20.0,
+        right: 20.0,
+      ),
+      height: ScreenUtil().setHeight(180.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: ScreenUtil().setWidth(120),
+            height: ScreenUtil().setHeight(120),
+            child: Image.network(
+              model.good_image,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: ScreenUtil().setWidth(10.0),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                model.good_name.substring(0, 10),
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(26.0),
+                  color: Colors.black54,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: ScreenUtil().setHeight(10.0),
+                ),
+              ),
+              Text(
+                '${model.good_price}',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: ScreenUtil().setSp(26.0),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Text(
+                'X${model.good_count}',
+              ),
+            )
+          )
+        ],
       ),
     );
   }
