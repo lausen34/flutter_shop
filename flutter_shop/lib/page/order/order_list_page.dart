@@ -56,7 +56,6 @@ class _OrderListPageState extends State<OrderListPage> {
     list.forEach((v) {
       _goods_list.add(OrderGoodModel.fromJson(v));
     });
-
     return Card(
       child: InkWell(
         onTap: () {
@@ -79,9 +78,79 @@ class _OrderListPageState extends State<OrderListPage> {
                   ),
                 ),
               ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _goods_list.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return this._goodItem(_goods_list[index]);
+                },
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _goodItem(OrderGoodModel good) {
+    return Container(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Image.network(
+            good.good_image ?? '',
+            width: ScreenUtil().setWidth(160.0),
+            height: ScreenUtil().setHeight(160.0),
+            fit: BoxFit.cover,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: ScreenUtil().setWidth(20.0),
+              right: ScreenUtil().setWidth(20.0),
+            ),
+            child: Text(
+              'X${good.good_name.substring(0, 10)}',
+              style: TextStyle(
+                fontSize: ScreenUtil().setSp(26.0),
+                color: KColor.ORDER_ITEM_TEXT_COLOR,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: ScreenUtil().setWidth(150),
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(
+                left: ScreenUtil().setWidth(20.0),
+                right: ScreenUtil().setWidth(20.0),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '${good.good_price}',
+                    style: TextStyle(
+                      color: KColor.ORDER_ITEM_TEXT_COLOR,
+                      fontSize: ScreenUtil().setSp(24.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: ScreenUtil().setHeight(20.0),
+                    ),
+                  ),
+                  Text(
+                    'X${good.good_count}',
+                    style: TextStyle(
+                      color: KColor.ORDER_ITEM_TEXT_COLOR,
+                      fontSize: ScreenUtil().setSp(24.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

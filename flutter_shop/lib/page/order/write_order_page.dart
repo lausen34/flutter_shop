@@ -20,6 +20,7 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
   String _mobile = '';
   String _address = '';
   int _user_id = 0;
+  List<CartModel> cartList;
 
   @override
   void initState() {
@@ -28,7 +29,7 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
   }
 
   void _initData() async {
-    List<CartModel> cartList = DataCenter.getInstance().cartList;
+    cartList = DataCenter.getInstance().cartList;
     int price = 0;
     cartList.forEach((cartModel) {
       if (cartModel.is_checked == 1) {
@@ -208,7 +209,7 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
 
   void _submitOrder() async{
     List<CartModel> list = List<CartModel>();
-    list.forEach((model) {
+    cartList.forEach((model) {
       if(model.is_checked == 1){
         list.add(model);
       }
@@ -221,10 +222,10 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
       'express': 0,
       'mobile': this._mobile,
       'goods': json.encode(goodJson),
+      'address': this._address,
     };
     var response = await HttpService.post(ApiUrl.ORDER_ADD,params: params);
     if(response['code'] == 0){
-      //TODO 跳转订单列表
       RouterUtil.toOrderListPage(context);
     }
   }
