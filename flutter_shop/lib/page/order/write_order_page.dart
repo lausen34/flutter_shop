@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/component/medium_button.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/data/data_center.dart';
 import 'package:flutter_shop/model/cart_model.dart';
+import 'package:flutter_shop/service/http_service.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
 
 class WriteOrderPage extends StatefulWidget {
@@ -45,59 +49,88 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(KString.MY_ORDER),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListTile(
-              title: Text(KString.ALL_PRICE),
-              trailing: Text('¥${_allPrice}'),
-            ),
-            Divider(
-              height: ScreenUtil().setHeight(1.0),
-              color: Colors.grey[350],
-            ),
-            ListTile(
-              title: Text(KString.EXPRESS),
-              trailing: Text('¥0'),
-            ),
-            Divider(
-              height: ScreenUtil().setHeight(1.0),
-              color: Colors.grey[350],
-            ),
-            ListTile(
-              title: Text(KString.USER_NAME),
-              trailing: Text('$_username'),
-            ),
-            Divider(
-              height: ScreenUtil().setHeight(1.0),
-              color: Colors.grey[350],
-            ),
-            ListTile(
-              title: Text(KString.MOBILE),
-              trailing: Text('$_mobile'),
-            ),
-            Divider(
-              height: ScreenUtil().setHeight(1.0),
-              color: Colors.grey[350],
-            ),
-            ListTile(
-              title: Text(KString.ADDRESS),
-              trailing: Text('$_address'),
-            ),
-            Divider(
-              height: ScreenUtil().setHeight(1.0),
-              color: Colors.grey[350],
-            ),
-            Column(
-              children: this._goodItems(),
-            )
-          ],
+        appBar: AppBar(
+          title: Text(KString.MY_ORDER),
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(KString.ALL_PRICE),
+                trailing: Text('¥${_allPrice}'),
+              ),
+              Divider(
+                height: ScreenUtil().setHeight(1.0),
+                color: Colors.grey[350],
+              ),
+              ListTile(
+                title: Text(KString.EXPRESS),
+                trailing: Text('¥0'),
+              ),
+              Divider(
+                height: ScreenUtil().setHeight(1.0),
+                color: Colors.grey[350],
+              ),
+              ListTile(
+                title: Text(KString.USER_NAME),
+                trailing: Text('$_username'),
+              ),
+              Divider(
+                height: ScreenUtil().setHeight(1.0),
+                color: Colors.grey[350],
+              ),
+              ListTile(
+                title: Text(KString.MOBILE),
+                trailing: Text('$_mobile'),
+              ),
+              Divider(
+                height: ScreenUtil().setHeight(1.0),
+                color: Colors.grey[350],
+              ),
+              ListTile(
+                title: Text(KString.ADDRESS),
+                trailing: Text('$_address'),
+              ),
+              Divider(
+                height: ScreenUtil().setHeight(1.0),
+                color: Colors.grey[350],
+              ),
+              Column(
+                children: this._goodItems(),
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            margin: EdgeInsets.only(
+              left: ScreenUtil().setWidth(20.0),
+              right: ScreenUtil().setWidth(20.0),
+            ),
+            height: ScreenUtil().setHeight(100),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '¥${_allPrice}.00',
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                      fontSize: ScreenUtil().setSp(26.0),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                KMediumButton(
+                  text: KString.SUBMIT_ORDER,
+                  color: KColor.SUBMIT_ORDER_BUTTON_COLOR,
+                  onPressed: (){
+                    this._submitOrder();
+                  },
+                )
+              ],
+            ),
+          ),
+        ));
   }
 
   List<Widget> _goodItems() {
@@ -162,15 +195,37 @@ class _WriteOrderPageState extends State<WriteOrderPage> {
             ],
           ),
           Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'X${model.good_count}',
-              ),
-            )
-          )
+              child: Container(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'X${model.good_count}',
+            ),
+          ))
         ],
       ),
     );
+  }
+
+  void _submitOrder() async{
+    List<CartModel> list = List<CartModel>();
+    list.forEach((model) {
+      if(model.is_checked == 1){
+        list.add(model);
+      }
+    });
+    var goodJson = list.map((v) => v.toJson()).toList();
+    var params = {
+      'user_id': this._user_id,
+      'username': this._username,
+      'pay': this._allPrice,
+      'express': 0,
+      'mobile': this._mobile,
+      'goods': json.encode(goodJson),
+    };
+    var response = await HttpService.post(ApiUrl.ORDER_ADD,params: params);
+    if(response['code'] == 0){
+      //TODO 跳转订单列表
+      RouterUtil.toOrderListPage(context);
+    }
   }
 }

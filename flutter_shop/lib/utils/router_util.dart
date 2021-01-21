@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/model/order_model.dart';
 import 'package:flutter_shop/page/detail/good_detail_page.dart';
+import 'package:flutter_shop/page/order/order_info_page.dart';
+import 'package:flutter_shop/page/order/order_list_page.dart';
 import 'package:flutter_shop/page/user/member_page.dart';
 import '../page/user/login_page.dart';
 import '../page/category/category_good_list_page.dart';
@@ -61,6 +64,24 @@ class RouterUtil {
       context,
       MaterialPageRoute(
         builder: (context) => WriteOrderPage(),
+      ),
+    );
+  }
+
+  static toOrderListPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OrderListPage(),
+      ),
+    );
+  }
+
+  static toOrderInfoPage(BuildContext context, OrderModel orderModel) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OrderInfoPage(orderModel),
       ),
     );
   }
