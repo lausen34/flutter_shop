@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/config/index.dart';
 import 'package:flutter_shop/model/order_model.dart';
 import 'package:flutter_shop/service/http_service.dart';
+import 'package:flutter_shop/utils/router_util.dart';
 import 'package:flutter_shop/utils/token_util.dart';
 
 class OrderListPage extends StatefulWidget {
@@ -38,7 +39,7 @@ class _OrderListPageState extends State<OrderListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(KString.MY_ORDER),
+        title: Text(KString.ALL_ORDER),
         centerTitle: true,
       ),
       body: ListView.builder(
@@ -59,7 +60,7 @@ class _OrderListPageState extends State<OrderListPage> {
     return Card(
       child: InkWell(
         onTap: () {
-          this._goOrderDetail(order);
+          this._goOrderDetail(context,order);
         },
         child: Container(
           margin: EdgeInsets.all(
@@ -155,5 +156,7 @@ class _OrderListPageState extends State<OrderListPage> {
     );
   }
 
-  void _goOrderDetail(OrderModel orderModel) {}
+  void _goOrderDetail(BuildContext context, OrderModel orderModel) {
+    RouterUtil.toOrderInfoPage(context, orderModel);
+  }
 }
